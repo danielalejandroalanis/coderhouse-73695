@@ -1,24 +1,18 @@
 import React from "react";
-import "./App.css";
-
-//Componentes basados en funciones
-
-//Function tiene 'this'
-// function MyButton() {
-//   const suma = 2 + 2;
-//   return <button>{suma}</button>;
-// }
-
-//Function no tiene 'this'
-const MyButton = () => {
-  return <button>Test</button>;
-};
+import { Box, ChakraProvider } from "@chakra-ui/react";
+import NavBar from "./components/NavBar";
+import ItemListContainer from "./components/ItemListContainer";
 
 const App = () => {
-  return <MyButton />;
+  
+  return (
+    <ChakraProvider>
+      <Box height="100vh">
+        <NavBar />
+        <ItemListContainer greeting="Bienvenidos a mi Tienda!" />
+      </Box>
+    </ChakraProvider>
+  );
 };
 
 export default App;
-
-//Componentes basados en clases (busquen Error Boundary)
-// class MyButton extends React.Component {}
