@@ -29,11 +29,10 @@ const NavBar = () => {
       justifyContent="space-between"
       width="100vw"
       padding="0 20px"
-      height='5%'
-      border='1px solid #2e2e2e'
+      height="10vh"
+      border="1px solid #2e2e2e"
     >
       <Text className="test">Coder's Store</Text>
-      {/* <div style={myStyles}>Hola</div> */}
       <Menu>
         <MenuButton as={Button}>Actions</MenuButton>
         <MenuList>
