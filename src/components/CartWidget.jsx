@@ -10,5 +10,3 @@ const CartWidget = () => {
 };
 
 export default CartWidget;
-
-//DDD, Screaming, Feature, MVVC, MVC (Arquitecturas)

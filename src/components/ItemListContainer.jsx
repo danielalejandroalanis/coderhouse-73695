@@ -1,110 +1,63 @@
-import {
-  Flex,
-  Text,
-  Spinner,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Box, Flex, Heading, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import { getAllProducts } from "../services/products.service";
 
-const MOCK_DATA = [
-  {
-    id: 1,
-    title: "Zapatillas Adidas",
-    description: "Zapatillas Adidas 38 Mujer",
-    price: 100,
-    currency: "USD",
-    stock: 10,
-  },
-  {
-    id: 2,
-    title: "Zapatillas Adidas",
-    description: "Zapatillas Adidas 42 Hombre",
-    price: 120,
-    currency: "USD",
-    stock: 10,
-  },
-  {
-    id: 3,
-    title: "Zapatillas Nike",
-    description: "Zapatillas Nike 40 Hombre",
-    price: 110,
-    currency: "USD",
-    stock: 10,
-  },
-];
+const ItemCard = ({ image, title, description, price, discount }) => {
+  console.log(discount)
 
-const isTrue = false;
+  const priceAfterDiscount = (price - (price * discount / 100)).toFixed(2);
 
-const newPromise = new Promise((resolve, reject) => {
-  setTimeout(() => {
-    if (isTrue) {
-      resolve(MOCK_DATA);
-    } else {
-      reject("Rechazado, no hay productos");
-    }
-  }, 2000);
-});
 
-const ItemListContainer = ({ greeting }) => {
+  return (
+    <Box
+      width={"300px"}
+      borderWidth={"1px"}
+      borderRadius={"lg"}
+      color={"white"}
+      transition="transform 0.3s, box-shadow 0.3s"
+      _hover={{ transform: "translateY(-5px)", boxShadow: "lg" }}
+    >
+      <Image alt={title} src={image} objectFit={"contain"} width={"100%"} />
+      <Box padding={4}>
+        <Heading size={"md"} marginBottom={2}>
+          {title}
+        </Heading>
+        <Text noOfLines={2} mb={4} color="gray.400">
+          {description}
+        </Text>
+        <Text fontSize={"18px"}>${price}</Text>
+        <Text fontSize={"18px"}>${ priceAfterDiscount }</Text>
+      </Box>
+    </Box>
+  );
+};
+
+const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  // respuesta de promesa puede ser negativa o positiva
-  // Pending: cuando la promesa aun no se cumplio
-  // Reject: cuando la promesa se cumplio negativamente
-  // Fullfilled: cuando la proemsa se cumplio positivamente
 
   useEffect(() => {
-    newPromise
-      .then((res) => {
-        console.log(res);
-        setProducts(res);
-      })
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
+    getAllProducts().then((res) => {
+      setProducts(res.data.products);
+    });
   }, []);
 
-  return loading ? (
-    <Spinner size={"xl"} color="red" thickness="4px"/>
-  ) : (
-    <Flex
-      fontSize="2rem"
-      height="95%"
-      width="100vw"
-      alignItems="center"
-      justifyContent="center"
-    >
-      {/* {products.map((product) => (
-      <Text> {product.title} </Text>
-    ))} */}
-      {products.length === 0 ? (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertTitle>Your browser is outdated!</AlertTitle>
-          <AlertDescription>
-            Your Chakra experience may be degraded.
-          </AlertDescription>
-        </Alert>
-      ) : (
-        products.map((product, index) => {
+  return (
+    <Box width={"100%"} overflowX={"hidden"} p={4}>
+      <SimpleGrid columns={{ sm: 2, md:3, lg: 6 }} spacing={4} width={"100%"}>
+        {products.map((product) => {
           return (
-            <Flex
+            <ItemCard
               key={product.id}
-              border={"1px solid grey"}
-              margin={30}
-              flexDirection={"column"}
-            >
-              <Text>Titulo: {product.title}</Text>
-              <Text>Descripcion: {product.description}</Text>
-              <Text>Precio: ${product.price}</Text>
-            </Flex>
+              image={product.thumbnail}
+              title={product.title}
+              description={product.description}
+              price={product.price}
+              discount={product.discountPercentage}
+            />
           );
-        })
-      )}
-    </Flex>
+        })}
+      </SimpleGrid>
+    </Box>
   );
 };
 
