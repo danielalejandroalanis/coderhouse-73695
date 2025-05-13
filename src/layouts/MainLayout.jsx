@@ -1,11 +1,14 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Outlet } from "react-router";
+import { Box } from "@chakra-ui/react";
 import NavBar from "../components/NavBar";
 
-const MainLayout = ({ children }) => {
+const MainLayout = () => {
   return (
     <Box height={"100vh"} width={"100vw"}>
       <NavBar />
-      <Flex height={"90vh"}>{children}</Flex>
+      <Box width={"100vw"}>
+        <Outlet />
+      </Box>
     </Box>
   );
 };

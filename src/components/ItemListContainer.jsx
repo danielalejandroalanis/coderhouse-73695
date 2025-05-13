@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
-import { Box, Flex, Heading, Image, SimpleGrid, Text } from "@chakra-ui/react";
-import { getAllProducts } from "../services/products.service";
+import { Box, Heading, Image, SimpleGrid, Text } from "@chakra-ui/react";
+import { useNavigate } from "react-router";
 
-const ItemCard = ({ image, title, description, price, discount }) => {
-  console.log(discount)
-
-  const priceAfterDiscount = (price - (price * discount / 100)).toFixed(2);
-
+const ItemCard = ({ id, image, title, description, price, discount }) => {
+  const priceAfterDiscount = (price - (price * discount) / 100).toFixed(2);
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -16,6 +13,7 @@ const ItemCard = ({ image, title, description, price, discount }) => {
       color={"white"}
       transition="transform 0.3s, box-shadow 0.3s"
       _hover={{ transform: "translateY(-5px)", boxShadow: "lg" }}
+      onClick={() => navigate(`/item/${id}`)}
     >
       <Image alt={title} src={image} objectFit={"contain"} width={"100%"} />
       <Box padding={4}>
@@ -26,28 +24,22 @@ const ItemCard = ({ image, title, description, price, discount }) => {
           {description}
         </Text>
         <Text fontSize={"18px"}>${price}</Text>
-        <Text fontSize={"18px"}>${ priceAfterDiscount }</Text>
+        <Text fontSize={"18px"}>${priceAfterDiscount}</Text>
       </Box>
     </Box>
   );
 };
 
-const ItemListContainer = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    getAllProducts().then((res) => {
-      setProducts(res.data.products);
-    });
-  }, []);
+const ItemListContainer = ({products}) => {
 
   return (
     <Box width={"100%"} overflowX={"hidden"} p={4}>
-      <SimpleGrid columns={{ sm: 2, md:3, lg: 6 }} spacing={4} width={"100%"}>
+      <SimpleGrid columns={{ sm: 2, md: 3, lg: 6 }} spacing={4} width={"100%"}>
         {products.map((product) => {
           return (
             <ItemCard
               key={product.id}
+              id={product.id}
               image={product.thumbnail}
               title={product.title}
               description={product.description}
