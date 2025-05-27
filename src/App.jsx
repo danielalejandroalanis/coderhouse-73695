@@ -5,12 +5,14 @@ import MainLayout from "./layouts/MainLayout";
 import ItemListContainer from "./components/ItemListContainer";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
+import { CartProvider } from "./context/CartContext";
 
 const App = () => {
   return (
     <ChakraProvider>
-        {/* <ItemListContainer /> */}
+      <CartProvider>
         <RouterProvider router={router} />
+      </CartProvider>
     </ChakraProvider>
   );
 };

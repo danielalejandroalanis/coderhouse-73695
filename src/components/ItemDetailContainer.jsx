@@ -1,54 +1,3 @@
-// import { Flex, Image, Text, Button, Heading } from "@chakra-ui/react";
-
-// const ItemDetailContainer = ({ product }) => {
-//   console.log(product);
-//   return (
-//     <Flex>
-//       {product.images ? (
-//         <Image
-//           src={product.images[0]}
-//           width={"20%"}
-//           height={"300px"}
-//           objectFit={"content"}
-//         />
-//       ) : null}
-//       <Flex flexDir={'column'}>
-//       <Heading>{product.title}</Heading>
-//       <Text fontSize={'1rem'}>{product.description}</Text>
-//       <Text>{product.price}</Text>
-//       <Button>Agregar producto</Button>
-//       </Flex>
-//     </Flex>
-//   );
-// };
-
-// export default ItemDetailContainer;
-// import { Flex, Image, Text, Button, Heading } from "@chakra-ui/react";
-
-// const ItemDetailContainer = ({ product }) => {
-//   console.log(product);
-//   return (
-//     <Flex>
-//       {product.images ? (
-//         <Image
-//           src={product.images[0]}
-//           width={"20%"}
-//           height={"300px"}
-//           objectFit={"content"}
-//         />
-//       ) : null}
-//       <Flex flexDir={'column'}>
-//       <Heading>{product.title}</Heading>
-//       <Text fontSize={'1rem'}>{product.description}</Text>
-//       <Text>{product.price}</Text>
-//       <Button>Agregar producto</Button>
-//       </Flex>
-//     </Flex>
-//   );
-// };
-
-// export default ItemDetailContainer;
-
 import {
   Box,
   Container,
@@ -64,11 +13,12 @@ import {
   useColorModeValue,
   List,
   ListItem,
+  Input,
 } from "@chakra-ui/react";
 import { MdLocalShipping } from "react-icons/md";
+import ItemCount from "./ItemCount";
 
 const ItemDetailContainer = ({ product }) => {
-  console.log(product);
   return (
     <Container maxW={"7xl"}>
       <SimpleGrid
@@ -184,22 +134,7 @@ const ItemDetailContainer = ({ product }) => {
             </Box>
           </Stack>
 
-          <Button
-            rounded={"none"}
-            w={"full"}
-            mt={8}
-            size={"lg"}
-            py={"7"}
-            bg={useColorModeValue("gray.900", "gray.50")}
-            color={useColorModeValue("white", "gray.900")}
-            textTransform={"uppercase"}
-            _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
-            }}
-          >
-            Add to cart
-          </Button>
+          <ItemCount product={product} />
 
           <Stack direction="row" alignItems="center" justifyContent={"center"}>
             <MdLocalShipping />
