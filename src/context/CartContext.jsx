@@ -5,20 +5,6 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // Recibimos el producto 1, tenemos dos caminos posibles
-  // primer camino, es que el producto no exista dentro del array y lo agregamos junto con la cantidad
-  // Segundo camino, es que el producto exista, en ese caso deberemos solo sumarles cantidad al producto 1
-
-  // const obj = {
-  //   id: 1,
-  //   name: 'loquesea',
-  //   quantity: 2
-  // }
-
-  // const obj2 = {
-  //   ...obj, quantity: 3
-  // }
-
   const addProductToCart = (product) => {
     setCart((prevCart) => {
       const existingProduct = prevCart.find((item) => item.id === product.id);

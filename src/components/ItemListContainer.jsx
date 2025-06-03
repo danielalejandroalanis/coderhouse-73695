@@ -30,8 +30,7 @@ const ItemCard = ({ id, image, title, description, price, discount }) => {
   );
 };
 
-const ItemListContainer = ({products}) => {
-
+const ItemListContainer = ({ products }) => {
   return (
     <Box width={"100%"} overflowX={"hidden"} p={4}>
       <SimpleGrid columns={{ sm: 2, md: 3, lg: 6 }} spacing={4} width={"100%"}>

@@ -4,8 +4,10 @@ import { CiShoppingCart } from "react-icons/ci";
 import { CartContext } from "../context/CartContext";
 
 const CartWidget = () => {
-  const { getTotalCount } = useContext(CartContext);
+  const { getTotalCount, cart } = useContext(CartContext);
   const totalCount = getTotalCount();
+
+  console.log(cart)
 
   return (
     <Flex alignItems="center">
