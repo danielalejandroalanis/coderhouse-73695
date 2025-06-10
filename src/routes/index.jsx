@@ -5,6 +5,8 @@ import Item from "../pages/Item";
 import Category from "../pages/Category";
 import NotFound from "../pages/NotFound";
 import AddDoc from "../pages/AddDoc";
+import Cart from "../pages/Cart";
+import Checkout from "../pages/Checkout";
 
 const routes = [
   {
@@ -22,6 +24,14 @@ const routes = [
       {
         path: "/category/:id",
         element: <Category />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
+        path: "/checkout",
+        element: <Checkout />
       },
       {
         path: "/add-doc",

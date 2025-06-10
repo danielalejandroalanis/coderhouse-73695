@@ -9,26 +9,11 @@ import {
 } from "@chakra-ui/react";
 import CartWidget from "./CartWidget";
 import { useNavigate } from "react-router";
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../services/config/firebase";
+import { useGetFirestoreDocs } from "../hooks/useGetFirestoreDocs";
 
 const NavBar = () => {
-  const [categories, setCategories] = useState([]);
+  const { items: categories } = useGetFirestoreDocs("categories");
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const categoriesCollection = collection(db, "categories");
-    getDocs(categoriesCollection)
-      .then((snapshot) => {
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setCategories(data);
-      })
-      .catch(() => setError(true));
-  }, []);
 
   return (
     <Flex
